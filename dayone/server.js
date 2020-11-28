@@ -10,15 +10,19 @@ const server = http.createServer((req, res) => {
     res.setHeader("Content-Type", "text/html");
     //send html file
     let path = "./views/";
+
     switch (req.url) {
         case '/':
             path += "index.html";
+            res.statusCode = 200; // status code 
             break;
         case '/about':
             path += "about.html";
+            res.statusCode = 200; // status code 
             break;
         default:
             path += "404.html";
+            res.statusCode = 404; // status code 
             break;
     }
     fs.readFile(path, (err, data) => {
@@ -29,7 +33,8 @@ const server = http.createServer((req, res) => {
             // res.write(data);
             // res.end();
             //if we want to send only one data, we can directly send data through res.end
-            res.end(data)
+            res.end(data);
+
         }
 
     })
@@ -39,3 +44,19 @@ const server = http.createServer((req, res) => {
 server.listen(2999, 'localhost', () => {
     console.log('listening for request on port 2999');
 });
+
+
+/*
+
+? Status Codes
+* 200 - ok
+* 301 - Resource moved
+* 404 - not found
+* 500 - Internal server error
+! Range
+* 100 Range - Informational responses
+* 200 Range - Success codes
+* 300 Range - Codes for redirects
+* 400 Range - User or client error codes
+* 500 Range - Server error codes
+*/
