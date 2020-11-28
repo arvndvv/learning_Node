@@ -14,15 +14,20 @@ const server = http.createServer((req, res) => {
     switch (req.url) {
         case '/':
             path += "index.html";
-            res.statusCode = 200; // status code 
+            res.statusCode = 200; // status code ok
             break;
         case '/about':
             path += "about.html";
-            res.statusCode = 200; // status code 
+            res.statusCode = 200; // status code ok
+            break;
+        case '/about-me':
+
+            res.statusCode = 301; // status code permanent redirect
+            res.setHeader('Location', '/about')
             break;
         default:
             path += "404.html";
-            res.statusCode = 404; // status code 
+            res.statusCode = 404; // status code  not found
             break;
     }
     fs.readFile(path, (err, data) => {
