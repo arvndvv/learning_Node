@@ -1,0 +1,23 @@
+{
+    "name": "node",
+    "version": "1.0.0",
+    "description": "my path through learning  node",
+    "main": "index.html",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/arvndvv/learning_Node.git"
+    },
+    "author": "arvndvv",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/arvndvv/learning_Node/issues"
+    },
+    "homepage": "https://github.com/arvndvv/learning_Node#readme",
+    "dependencies": {
+        "lodash": "^4.17.20"
+    }
+}
