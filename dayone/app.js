@@ -1,5 +1,7 @@
 const express = require('express');
-//express app
+//morgan middleware
+const morgan = require('morgan')
+    //express app
 const app = express();
 // register view engine
 app.set('view engine', 'ejs');
@@ -8,6 +10,13 @@ app.set('view engine', 'ejs');
 //listen to requests
 
 app.listen(3000);
+// to allow us to use external static files like styles.css, we need to provide permission
+// for that we use an inbuilt express middleware
+
+//middleware & static files
+app.use(express.static('public'));
+// anything inside public folder will be available
+app.use(morgan('dev'));
 app.get('/', (req, res) => {
     // res.sendFile('./views/index.html', { root: __dirname });
     const blogs = [{ title: "Getting Started", snippet: "Lorem ipsum dolor sit amet consectetur." },
