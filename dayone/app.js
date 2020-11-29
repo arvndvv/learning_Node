@@ -8,3 +8,6 @@ app.listen(3000);
 app.get('/', (req, res) => {
     res.send('<p>Yo Home!</p>');
 })
+app.get('/about', (req, res) => {
+    res.send('<p>Yo About!</p>');
+})
