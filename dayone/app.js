@@ -1,24 +1,35 @@
 const express = require('express');
 //morgan middleware
 const morgan = require('morgan')
+const mongoose = require('mongoose');
+const Blog = require("./models/blog")
     //express app
 const app = express();
-// register view engine
+//connect to mongodb
+const dbURI = 'mongodb+srv://betabrain:beta1234@blog.wo1vw.mongodb.net/blogtut?retryWrites=true&w=majority';
+
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then((result) => {
+        console.log("connected to db");
+        //listen to requests
+
+        app.listen(3000);
+    })
+    .catch((err) => console.log(err))
+    // register view engine
 app.set('view engine', 'ejs');
 //app.set('views','myviews'); //! default folder it will look at if this is not defined is  views/
 
-//listen to requests
-
-app.listen(3000);
 // to allow us to use external static files like styles.css, we need to provide permission
 // for that we use an inbuilt express middleware
-
 //middleware & static files
 app.use(express.static('public'));
 // anything inside public folder will be available
 app.use(morgan('dev'));
+//routes
 app.get('/', (req, res) => {
     // res.sendFile('./views/index.html', { root: __dirname });
+    res.redirect('/blogs');
     const blogs = [{ title: "Getting Started", snippet: "Lorem ipsum dolor sit amet consectetur." },
         { title: "Installation", snippet: "Lorem ipsum dolor sit amet consectetur." },
         { title: "First Project", snippet: "Lorem ipsum dolor sit amet consectetur." }
@@ -26,10 +37,15 @@ app.get('/', (req, res) => {
     res.render('index', { title: 'Home', blogs })
 })
 app.get('/about', (req, res) => {
-
-    // res.sendFile('./views/about.html', { root: __dirname });
-    res.render('about', { title: 'About' });
+        // res.sendFile('./views/about.html', { root: __dirname });
+        res.render('about', { title: 'About' });
+    })
+    //blog routes
+app.get('/blogs', (req, res) => {
+    Blog.find() //! from here
+        .then
 })
+
 app.get('/blogs/create', (req, res) => {
         res.render('create', { title: 'Create Blog' });
     })
