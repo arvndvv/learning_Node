@@ -1,6 +1,6 @@
 const express = require('express');
 //morgan middleware
-const morgan = require('morgan')
+// const morgan = require('morgan')
 const mongoose = require('mongoose');
 const Blog = require("./models/blog")
     //express app
@@ -25,16 +25,12 @@ app.set('view engine', 'ejs');
 //middleware & static files
 app.use(express.static('public'));
 // anything inside public folder will be available
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 //routes
 app.get('/', (req, res) => {
     // res.sendFile('./views/index.html', { root: __dirname });
-    res.redirect('/blogs');
-    const blogs = [{ title: "Getting Started", snippet: "Lorem ipsum dolor sit amet consectetur." },
-        { title: "Installation", snippet: "Lorem ipsum dolor sit amet consectetur." },
-        { title: "First Project", snippet: "Lorem ipsum dolor sit amet consectetur." }
-    ];
-    res.render('index', { title: 'Home', blogs })
+    // res.redirect('/blogs');
+    res.redirect('/blogs')
 })
 app.get('/about', (req, res) => {
         // res.sendFile('./views/about.html', { root: __dirname });
@@ -42,8 +38,13 @@ app.get('/about', (req, res) => {
     })
     //blog routes
 app.get('/blogs', (req, res) => {
-    Blog.find() //! from here
-        .then
+    Blog.find().sort({ createdAt: -1 })
+        .then((result) => {
+            res.render('index', { title: 'All Blogs', blogs: result })
+        })
+        .catch((err) => {
+
+        })
 })
 
 app.get('/blogs/create', (req, res) => {
