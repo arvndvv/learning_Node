@@ -5,6 +5,7 @@
  :root {
     --bg: #2b89ec;
     --bglight: #57a5f8;
+    --navlight: #b6d9ff;
     --title: rgb(37, 37, 37);
     --footerColor: rgb(248, 248, 248);
     --heading: #0f6cce;
@@ -14,6 +15,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: 300ms;
 }
 
 html {
@@ -27,6 +29,7 @@ body {
     font-family: 'Libre Baskerville', serif;
     min-height: 100vh;
     width: 100vw;
+    display: grid;
     overflow-x: hidden;
 }
 
@@ -41,6 +44,7 @@ nav {
     display: flex;
     flex-direction: row;
     padding: 10px 2em;
+    max-height: 10vh;
     font-family: 'Nerko One', cursive;
     justify-content: space-between;
 }
@@ -61,7 +65,7 @@ nav ul li a {
 }
 
 nav * {
-    color: aliceblue;
+    color: var(--navlight);
 }
 
 nav a {
@@ -85,6 +89,7 @@ nav a {
     margin: 15px;
     position: relative;
     color: var(--title);
+    text-transform: capitalize
 }
 
 .title::after {
@@ -109,16 +114,19 @@ nav a {
 
 .content {
     padding: 2em;
-    min-height: 90vh;
+    text-align: justify;
+    /* min-height: 90vh; */
 }
 
 footer {
     background: var(--bg);
     padding: 10px;
     text-align: center;
-    color: var(--footerColor);
+    color: var(--navlight);
     font-family: 'Nerko One', cursive;
     font-size: 1em;
+    max-height: 10vh;
+    margin-top: auto;
     font-weight: lighter;
 }
 
@@ -161,4 +169,67 @@ textarea {
 
 .create-blog button:hover {
     background: var(--bglight);
+}
+
+.blogs a {
+    text-decoration: none;
+    display: inline;
+    color: black;
+}
+
+.blogs a:hover,
+.blogs a:hover h3 {
+    color: #2b89ec;
+    border-color: blueviolet;
+}
+
+.blogs a:hover h3::before,
+.blogs a:hover h3::after {
+    background: blueviolet;
+}
+
+nav ul li:hover a {
+    color: aliceblue;
+}
+
+.newblog {
+    position: relative;
+    z-index: 0;
+}
+
+.newblog::before {
+    content: attr(data-name);
+    color: #5ad8ff;
+    position: absolute;
+    top: 5px;
+    animation: newblog 1.5s ease infinite;
+    z-index: -1;
+}
+
+@keyframes newblog {
+    to {
+        transform: scale(1.3);
+        opacity: 0;
+    }
+}
+
+.details {
+    position: relative;
+}
+
+.delete {
+    padding: 6px 10px;
+    margin: 2em;
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.delete:visited {
+    color: red;
+}
+
+.delete:hover {
+    cursor: pointer;
+    color: red;
+    box-shadow: 1px 1px 1px rgba(250, 0, 0, 0.6);
 }

@@ -24,9 +24,10 @@ app.set('view engine', 'ejs');
 // for that we use an inbuilt express middleware
 //middleware & static files
 app.use(express.static('public'));
-// anything inside public folder will be available
-// app.use(morgan('dev'));
-//routes
+app.use(express.urlencoded({ extended: true }))
+    // anything inside public folder will be available
+    // app.use(morgan('dev'));
+    //routes
 app.get('/', (req, res) => {
     // res.sendFile('./views/index.html', { root: __dirname });
     // res.redirect('/blogs');
@@ -43,14 +44,53 @@ app.get('/blogs', (req, res) => {
             res.render('index', { title: 'All Blogs', blogs: result })
         })
         .catch((err) => {
+            console.log(err)
+        })
+});
 
+//taking post request data and sending it to  blog model
+app.post('/blogs', (req, res) => {
+    // console.log(req.body)
+    const blog = new Blog(req.body);
+    blog.save()
+        .then((result) => {
+            res.redirect('/blogs')
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
+})
+
+
+app.get('/blogs/create', (req, res) => {
+    res.render('create', { title: 'Create Blog' });
+})
+
+
+app.get('/blogs/:id', (req, res) => {
+    const id = req.params.id;
+    Blog.findById(id)
+        .then(result => {
+            res.render('details', { blog: result, title: result.title })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+})
+app.delete('/blogs/:id', (req, res) => {
+    const id = req.params.id;
+    Blog.findByIdAndDelete(id)
+        .then(result => {
+
+            res.json({ redirect: '/blogs', msg: 'Blog Trashed!' })
+        })
+        .catch(err => {
+            console.log(err);
         })
 })
 
-app.get('/blogs/create', (req, res) => {
-        res.render('create', { title: 'Create Blog' });
-    })
-    //redirect
+//redirect
 app.get('/about-us', (req, res) => {
     res.redirect('/about');
 })
