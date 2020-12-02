@@ -1,0 +1,58 @@
+<div class="loader" id="loader">
+    <span></span>
+    <span></span>
+    <span></span>
+
+</div>
+<style>
+    .loader {
+        background: var(--bg);
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .loader span {
+        width: 5em;
+        height: 5em;
+        position: absolute;
+        border-radius: 50%;
+        background: aliceblue;
+        transform: scale(0.1);
+    }
+    
+    .loader span:nth-of-type(1) {
+        animation: animateloader 1s ease infinite 0.1s;
+    }
+    
+    .loader span:nth-of-type(2) {
+        animation: animateloader 1s ease infinite 0.3s;
+    }
+    
+    .loader span:nth-of-type(1) {
+        animation: animateloader 1s ease infinite 0.5s;
+    }
+    
+    @keyframes animateloader {
+        from {
+            opacity: 1;
+            transform: scale(0.1);
+        }
+        to {
+            opacity: 0;
+            transform: scale(1);
+        }
+    }
+    
+    .none {
+        display: none;
+    }
+</style>
+<script>
+</script>

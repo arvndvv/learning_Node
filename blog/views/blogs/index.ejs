@@ -4,29 +4,36 @@
 <%- include('../partials/head.ejs') %>
     <!-- Now we need to rename extension from html to ejs -->
 
-    <body>
-        <%- include('../partials/nav.ejs') %>
-            <div class="blogs content">
-                <h2>All Blogs</h2>
+    <body class="grid" onload="removeLoader()">
+        <%- include('../partials/loader.ejs') %>
+            <%- include('../partials/nav.ejs') %>
 
-                <% if(blogs.length>0){%>
-                    <% blogs.forEach(blog=>{%>
-                        <a class="single" href="/blogs/<%= blog._id %>">
-                            <h3 class="title">
-                                <%=blog.title%>
-                            </h3>
-                            <p class="snippet">
-                                <%=blog.snippet%>
-                            </p>
-                        </a>
-                        <%})%>
-                            <%} else {%>
+                <div class="blogs content">
+                    <h2>All Blogs</h2>
 
-                                <p>no blogs yet!</p>
-                                <%}%>
+                    <% if(blogs.length>0){%>
+                        <% blogs.forEach(blog=>{let formatedTime = moment(blog.createdAt).calendar();
+                        %>
+                            <a class="single" href="/blogs/<%= blog._id %>">
+                                <h3 class="title">
+                                    <%=blog.title%>
+                                        <span><%=formatedTime%></span>
+                                </h3>
+                                <p class="snippet">
+                                    <%=blog.snippet%>
+                                </p>
+                            </a>
+                            <%})%>
+                                <%} else {%>
 
-            </div>
-            <%- include('../partials/footer.ejs') %>
+                                    <p>no blogs yet!</p>
+                                    <%}%>
+
+                </div>
+                <div class="side-img">
+                    <img src="/img/index.svg" alt="">
+                </div>
+                <%- include('../partials/footer.ejs') %>
     </body>
 
 </html>

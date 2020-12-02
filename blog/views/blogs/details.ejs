@@ -4,38 +4,43 @@
 <%- include('../partials/head.ejs') %>
     <!-- Now we need to rename extension from html to ejs -->
 
-    <body>
-        <%- include('../partials/nav.ejs') %>
-            <div class="details content">
-                <h2 class="detail-title">
+    <body class="grid detail-grid" onload="removeLoader()">
 
-                    <%= blog.title%>
-                        <%=moment(blog.createdAt).calender()%>
-                </h2>
+        <%- include('../partials/loader.ejs') %>
+            <%- include('../partials/nav.ejs') %>
+                <div class="details content">
+                    <a href="../" class="goBack"><i class="ri-arrow-left-line"></i></a>
+
+                    <h2 class="detail-title">
+
+                        <%= title%>
+                            <span><%=formatedTime%></span>
+
+                    </h2>
 
 
-                <div class="content">
-                    <p>
-                        <%=blog.body%>
-                    </p>
+                    <div class="detail-content">
+                        <p>
+                            <%=blog.body%>
+                        </p>
+                    </div>
+                    <a class="delete" data-doc="<%=blog._id%>"><i class="ri-delete-bin-7-line"></i></a>
+
+
+
                 </div>
-                <a class="delete" data-doc="<%=blog._id%>"><i class="ri-delete-bin-7-line"></i></a>
+                <%- include('../partials/footer.ejs') %>
 
-
-
-            </div>
-            <%- include('../partials/footer.ejs') %>
-
-                <script>
-                    const trash = document.querySelector('a.delete');
-                    trash.addEventListener('click', (e) => {
-                                const endpoint = `/blogs/${trash.dataset.doc}`;
-                                fetch(endpoint, {
-                                        method: 'DELETE'
-                                    }).then(response => response.json()).then(data => {
-                                            const out = document.querySelector('.content
-                                                    p '); out.innerText = data.msg; setTimeout(() => { window.location.href = data.redirect; }, 1000); }) .catch(err => console.log(err)) })
-                </script>
+                    <script>
+                        const trash = document.querySelector('a.delete');
+                        trash.addEventListener('click', (e) => {
+                                    const endpoint = `/blogs/${trash.dataset.doc}`;
+                                    fetch(endpoint, {
+                                            method: 'DELETE'
+                                        }).then(response => response.json()).then(data => {
+                                                const out = document.querySelector('.content
+                                                        p '); out.innerText = data.msg; setTimeout(() => { window.location.href = data.redirect; }, 1000); }) .catch(err => console.log(err)) })
+                    </script>
 
     </body>
 

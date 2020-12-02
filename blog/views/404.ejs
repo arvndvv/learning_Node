@@ -4,15 +4,16 @@
 <%- include('./partials/head.ejs') %>
     <!-- 404 -->
 
-    <body>
+    <body onload="removeLoader()">
 
-        <%- include('./partials/nav.ejs') %>
-            <div class="not-found content">
-                <h2>Alien Territory</h2>
-                <p>Page Not Found :(</p>
+        <%- include('./partials/loader.ejs') %>
+            <%- include('./partials/nav.ejs') %>
+                <div class="not-found content">
+                    <h2>Alien Territory</h2>
+                    <p>Page Not Found :(</p>
 
-            </div>
-            <%- include('./partials/footer.ejs') %>
+                </div>
+                <%- include('./partials/footer.ejs') %>
     </body>
 
 </html>
