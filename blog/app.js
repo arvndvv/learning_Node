@@ -9,6 +9,7 @@ const app = express();
 //connect to mongodb
 const dbURI = 'Add ur URI here';
 
+
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((result) => {
         console.log("connected to db");
